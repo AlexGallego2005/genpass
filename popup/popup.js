@@ -8,6 +8,51 @@ var lower = true;
 var number = true;
 var symbol = true;
 
+/**
+ * @typedef { object } AppSettingsCharset
+ * @property { boolean } upper
+ * @property { boolean } lower
+ * @property { boolean } number
+ * @property { boolean } symbol
+ */
+
+/**
+ * @typedef { object } AppSettings
+ * @property { number } length Longitud de la contraseña
+ * @property { AppSettingsCharset } charset
+ */
+
+/**
+ * @typedef { object } AppParams
+ * @property { Array<string> } passwords
+ * @property { AppSettings } settings
+ */
+
+function AppSetup()
+{
+    chrome.storage?.local?.get(['passwords', 'settings'], (res) => {
+        /** @type { AppParams } */
+        const params = {
+            passwords: res.passwords || new Array(),
+            settings: res.settings || {}
+        };
+
+        const passwordLengthSlider = document.getElementById('length');
+        const passwordLengthManual = document.getElementById('lengthNum');
+        const upper = document.getElementById('upper');
+        const lower = document.getElementById('lower');
+        const number = document.getElementById('number');
+        const symbol = document.getElementById('symbol');
+
+        passwordLengthSlider.max = params.settings.length;
+        passwordLengthManual.max = params.settings.length;
+        if (params.settings.charset.upper ?? true) upper.checked;
+        if (params.settings.charset.lower ?? false) lower.checked;
+        if (params.settings.charset.number ?? true) number.checked;
+        if (params.settings.charset.symbol ?? true) symbol.checked;
+    });
+};
+
 function reloadPassword(len=30)
 {
     passdiv.textContent = '';
@@ -44,6 +89,7 @@ function updateSlider()
 updateGradient();
 
 window.onload = function() {
+    AppSetup()
     reloadPassword(slider.value);
 
     mLength.addEventListener('change', () => updateSlider());
@@ -63,7 +109,15 @@ window.onload = function() {
     });
     document.getElementById('length').addEventListener('input', () => updateGradient());
     document.getElementById('reload').addEventListener('click', () => reloadPassword(slider.value));
-    document.getElementById('copy').addEventListener('click', () => navigator.clipboard.writeText(passdiv.textContent));
+    document.getElementById('copy').addEventListener('click', () => {
+        document.getElementById('copy').style.opacity = 0;
+        document.getElementById('copied').style.opacity = 1;
+        navigator.clipboard.writeText(passdiv.textContent);
+        setTimeout(() => {
+            document.getElementById('copy').style.opacity = 1;
+            document.getElementById('copied').style.opacity = 0;
+        }, 300);
+    });
     document.getElementById('upper').addEventListener('change', () => { upper = !upper; reloadPassword(slider.value) });
     document.getElementById('lower').addEventListener('change', () => { lower = !lower; reloadPassword(slider.value) });
     document.getElementById('number').addEventListener('change', () => { number = !number; reloadPassword(slider.value) });
