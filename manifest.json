@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "Genpass",
+    "version": "2025.09.25",
+    "action": {
+        "default_title": "Generador de contraseñas",
+        "default_popup": "popup/popup.html"
+    },
+    "permissions": [],
+    "host_permissions": [],
+    "icons": {
+        "128": "icons/icon128.png"
+    }
+}

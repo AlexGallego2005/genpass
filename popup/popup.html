@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Popup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=cached,content_copy" />
+
+    <style>
+        html {
+            width: 450px;
+        }
+        body {
+            font-family: "Ubuntu", sans-serif;
+            border-radius: 50px;
+            margin: 0;
+            padding: 0;
+        }
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+
+        .btn {
+            cursor: pointer;
+            /*background-color: #00000011;*/
+            background-color: #54ddff11;
+            transition: .1s;
+            user-select: none;
+            color: #3D9AE2;
+        }
+
+        .btn:hover {
+            background-color: #00000023;
+            background-color: #54ddff33;
+        }
+
+        .btn:focus, .btn:active {
+            background-color: #00000043;
+            background-color: #54ddff63;
+        }
+
+        /*header::before {
+            content: '';
+            display: block;
+            background-image: url('../icons/icon128.png');
+            background-size: 100%;
+            height: 30px;
+            width: 30px;
+            object-fit: contain;
+            position: absolute;
+            left: 20px;
+        }*/
+
+        #length {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: linear-gradient(to right,#3D9AE2 0%,#3D9AE2 var(--value),rgba(171,181,194,.24) var(--value),rgba(171,181,194,.24) 100%);
+            height: 4px;
+            border-radius: 2px;
+            outline: none;
+            width: 215px;
+        }
+
+        #length::-webkit-slider-thumb {
+            cursor: pointer;
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            appearance: none;
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 100%;
+        }
+
+        #uncap {
+            transition: .1s;
+        }
+
+        #uncap:hover {
+            color: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
+        #password {
+            margin-bottom: 0;
+        }
+
+        #password::-webkit-scrollbar {
+            all: unset;
+        }
+
+        #password[max="9999"]::-webkit-scrollbar-track {
+            border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        #password::-webkit-scrollbar-thumb {
+            border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+
+        input[type="checkbox"]:checked {
+            background-color: #3D9AE2;
+            border: 1px solid transparent;
+        }
+
+        input[type="checkbox"]:checked::after {
+            content: "✓";
+            display: block;
+            text-align: center;
+            font-weight: 800;
+            font-size: 14px;
+            color: white;
+            line-height: 16px; /* lo centra verticalmente */
+        }
+    </style>
+</head>
+
+<body>
+    <header style="display: flex; align-items: center; position: relative;">
+        <div style="font-size: 14px; padding: 17px; text-align: center; width: 100%;">
+            Generador de contraseñas
+        </div>
+    </header>
+    <main>
+        <div style="height: 1px; width: 100%; border-bottom: 1px solid rgba(0, 0, 0, 0.1); display: block;"></div>
+        <section style="position: relative;">
+            <div style="background-color: #00000000; padding: 10px 35px; border-radius: 10px;">
+                <p id="password" style="text-align: center; font-size: 18px; font-weight: 400; text-wrap: unset; text-wrap-mode: nowrap; text-overflow: clip; overflow-x: scroll;"></p>
+            </div>
+            <div style="display: grid; grid-template-columns: min-content min-content; column-gap: 10px; padding: 17px; padding-top: 0; color: #000000aa; justify-content: center;">
+                <span id="reload" style="padding: 5px; border-radius: 10px;" class="material-symbols-outlined btn">cached</span>
+                <span id="copy" style="padding: 5px; border-radius: 10px;" class="material-symbols-outlined btn">content_copy</span>
+            </div>
+        </section>
+        <div style="height: 1px; width: 100%; border-bottom: 1px solid rgba(0, 0, 0, 0.1); display: block;"></div>
+        <section style="display: grid; grid-template-columns: 65px auto; justify-content: center; align-items: center; margin: 7px 0px; column-gap: 10px;">
+            <input style="border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.3); padding: 5px; text-align: center;" type="number" id="lengthNum" max="30" min="5">
+            <div style="display: grid; grid-template-columns: min-content auto min-content; justify-content: center; column-gap: 10px; align-items: center;">
+                <p style="font-size: 14px;">5</p>
+                <input style="accent-color: white;" type="range" id="length" max="30" min="5">
+                <p id="uncap" style="font-size: 14px;">30</p>
+            </div>
+        </section>
+        <div style="height: 1px; width: 100%; border-bottom: 1px solid rgba(0, 0, 0, 0.1); display: block;"></div>
+        <section style="padding: 17px; display: flex; justify-content: center; column-gap: 10px; align-items: center; font-size: 14px; user-select: none;">
+            <div style="display: flex; justify-content: center; align-items: center; column-gap: 5px;">
+                <input type="checkbox" id="upper" checked>
+                <label for="upper">A-Z</label>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; column-gap: 5px;">
+                <input type="checkbox" id="lower" checked>
+                <label for="lower">a-z</label>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; column-gap: 5px;">
+                <input type="checkbox" id="number" checked>
+                <label for="number">0-9</label>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; column-gap: 5px;">
+                <input type="checkbox" id="symbol" checked>
+                <label for="symbol">Símbolos</label>
+            </div>
+        </section>
+    </main>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
