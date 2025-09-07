@@ -140,7 +140,21 @@
 
         #passHistory {
             max-height: 0px;
+            transition: all 1s;
             overflow: hidden;
+        }
+
+        #passHistoryContent {
+            max-height: calc(200px - 15px);
+            padding: 15px 25px;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+            display: grid;
+            grid-template-rows: repeat(auto-fit, minmax(min-content, 1fr));
+            row-gap: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #1c1b1bde;
         }
     </style>
 </head>
@@ -178,26 +192,26 @@
         <div style="height: 1px; width: 100%; border-bottom: 1px solid rgba(0, 0, 0, 0.1); display: block;"></div>
         <section style="padding: 17px; display: flex; justify-content: center; column-gap: 10px; align-items: center; font-size: 14px; user-select: none;">
             <div style="display: flex; justify-content: center; align-items: center; column-gap: 5px;">
-                <input type="checkbox" id="upper" checked>
+                <input type="checkbox" id="upper">
                 <label for="upper">A-Z</label>
             </div>
             <div style="display: flex; justify-content: center; align-items: center; column-gap: 5px;">
-                <input type="checkbox" id="lower" checked>
+                <input type="checkbox" id="lower">
                 <label for="lower">a-z</label>
             </div>
             <div style="display: flex; justify-content: center; align-items: center; column-gap: 5px;">
-                <input type="checkbox" id="number" checked>
+                <input type="checkbox" id="number">
                 <label for="number">0-9</label>
             </div>
             <div style="display: flex; justify-content: center; align-items: center; column-gap: 5px;">
-                <input type="checkbox" id="symbol" checked>
+                <input type="checkbox" id="symbol">
                 <label for="symbol">Símbolos</label>
             </div>
         </section>
         <section id="passHistory">
             <div style="height: 1px; width: 100%; border-bottom: 1px solid rgba(0, 0, 0, 0.1); display: block;"></div>
             <section>
-                <div>
+                <div id="passHistoryContent">
                     
                 </div>
             </section>
